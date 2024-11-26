@@ -2,11 +2,8 @@
     <div class="flex flex-col w-full px-4">
         <x-navigation />
         <div class="mt-4">
-            <!-- Masonry Container -->
             <div class="columns-1 sm:columns-2 gap-4 space-y-4">
-                <!-- Full Repository Section as a Single Item -->
                 <div class="bg-primary-default rounded-lg shadow-md break-inside-avoid p-4">
-                    <!-- Header -->
                     <div class="inline-flex items-center justify-between w-full">
                         <div class="flex flex-col items-start">
                             <h1 class="text-lg font-bold">{{ __('Recent Repositories') }}</h1>
@@ -25,7 +22,6 @@
                         </div>
                     </div>
 
-                    <!-- Repositories -->
                     @if (count($repos) === 0)
                         <div class="text-center text-lg p-4">
                             {{ __('No repositories found') }}
@@ -76,13 +72,10 @@
                     @endif
                 </div>
 
-                <!-- Additional Items -->
                 <div class="bg-primary-default rounded-lg shadow-md p-4 break-inside-avoid">
-                    <!-- Add any additional content -->
                 </div>
 
                 <div class="bg-primary-default rounded-lg shadow-md p-4 break-inside-avoid">
-                    <!-- Add any additional content -->
                 </div>
 
             </div>

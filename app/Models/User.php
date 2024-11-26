@@ -55,4 +55,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Item::class);
     }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function projectsWhereUpdatedIsLatest()
+    {
+        return $this->projects()->orderBy('updated_at', 'desc');
+    }
 }

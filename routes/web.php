@@ -12,6 +12,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [StartpageController::class, 'index'])->name('startpage');
+    Route::post('/refresh', [StartpageController::class, 'refresh'])->name('refresh');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

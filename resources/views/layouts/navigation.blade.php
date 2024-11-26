@@ -17,14 +17,16 @@
     <div id="profileDropdown" class="z-10 hidden bg-primary-default divide-y divide-gray-100 rounded-lg shadow w-44">
         <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
             <li class="px-1">
-                <a href="https://github.com/{{ auth()->user()->username }}"
-                    class="block px-4 py-2 hover:bg-primary-dark rounded-lg">Go to Github</a>
+                <a href="https://github.com/{{ auth()->user()->username }}" target="_blank"
+                    class="block px-4 py-2 hover:bg-primary-dark rounded-lg">
+                    {{ __('Open Github') }}
+                </a>
             </li>
             <li class="px-1">
                 <form action="{{ route('logout') }}" method="POST" class="w-full">
                     @csrf
                     <button type="submit" class="text-start block px-4 py-2 hover:bg-primary-dark rounded-lg w-full">
-                        Sign out
+                        {{ __('Sign out') }}
                     </button>
                 </form>
             </li>

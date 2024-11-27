@@ -28,6 +28,17 @@
 
                         <div>
                             <div class="flex flex-col items-end">
+                                <div class="flex flex-col items-end">
+                                    @if ($repo->commits->count() > 0)
+                                        <span class="text-sm text-semibold text-gray-400">
+                                            Commits: {{ count($repo->commits) }}
+                                        </span>
+                                        <span class="text-sm font-bold text-gray-400">
+                                            {{ $repo->commits->first()->smallerSha() }}
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <div class="">
                                     @if ($repo->pullRequests->count() > 0)
                                         <a href="{{ $repo->pullRequests->first()->html_url ?? '#' }}"
@@ -38,17 +49,6 @@
                                     @else
                                         <span class="text-sm text-semibold text-gray-400">
                                             {{ __('❌ No Pull Request') }}
-                                        </span>
-                                    @endif
-                                </div>
-
-                                <div class="flex flex-col items-end">
-                                    @if ($repo->commits->count() > 0)
-                                        <span class="text-sm font-bold text-gray-400">
-                                            {{ $repo->commits->first()->smallerSha() }}
-                                        </span>
-                                        <span class="text-sm text-semibold text-gray-400">
-                                            Commits: {{ count($repo->commits) }}
                                         </span>
                                     @endif
                                 </div>

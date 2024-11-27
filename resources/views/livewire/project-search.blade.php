@@ -1,8 +1,18 @@
 <div class="bg-primary-default rounded-lg shadow-md p-4 break-inside-avoid">
     <div class="relative">
-        <input type="text" wire:model.live.debounce.500ms="search" wire:keydown.escape="$set('suggestions', [])"
-            placeholder="Search projects..."
-            class="px-4 py-2 border rounded-md w-full text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col items-start">
+                <h1 class="text-lg font-bold">{{ $title }}</h1>
+                <span class="text-xs text-gray-400 italic">
+                    {{ $description }}
+                </span>
+            </div>
+            <livewire:index-button />
+        </div>
+
+        <input type="text" wire:model.live="search" wire:keydown.escape="$set('suggestions', [])"
+            placeholder="Search repositories" autocomplete="off" spellcheck="false"
+            class="mt-4 px-4 py-2 border rounded-md w-full bg-primary-dark border-primary-dark focus:outline-none focus:border-primary-dark focus:ring-1 focus:ring-primary-dark" />
 
         @if (count($suggestions) > 0)
             <div class="absolute z-10 w-full bg-primary-default border border-primary-dark rounded shadow-lg">

@@ -12,7 +12,9 @@ class SocialiteController extends Controller
 {
     public function redirect(): RedirectResponse
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('github')
+            ->setScopes(['repo', 'read:user', 'user:email'])
+            ->redirect();
     }
 
     public function callback(): RedirectResponse

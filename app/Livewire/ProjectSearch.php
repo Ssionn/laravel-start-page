@@ -3,29 +3,35 @@
 namespace App\Livewire;
 
 use App\Models\Project;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Laravel\Scout\Scout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ProjectSearch extends Component
 {
+    public $title = 'Search all repositories';
+    public $description = 'Index of all of your repositories you have access to';
     public $search = '';
     public $suggestions = [];
 
-    public function updatedSearch()
+    public function updatedSearch(): array|Collection
     {
-        if (strlen($this->search) < 2) {
+        if (strlen($this->search) < 1) {
             return $this->suggestions = [];
         }
 
-        $this->suggestions = Project::search($this->search)
+        return $this->suggestions = Project::search($this->search)
             ->options([
-                "query_by" => "full_name,description"
+                "query_by" => "name,full_name"
             ])
             ->take(5)
             ->get();
     }
 
-    public function selectSearchTerm(int $projectId)
+    public function selectSearchTerm(int $projectId): void
     {
         $project = Project::find($projectId);
 
@@ -34,7 +40,15 @@ class ProjectSearch extends Component
         $this->suggestions = [];
     }
 
-    public function render()
+    #[On('reIndexScout')]
+    public function reIndexScout(): void
+    {
+        Scout::removeFromSearchUsing(Project::class);
+
+        Scout::makeSearchableUsing(Project::all());
+    }
+
+    public function render(): View
     {
         return view('livewire.project-search');
     }

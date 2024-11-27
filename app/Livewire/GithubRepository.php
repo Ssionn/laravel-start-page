@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Jobs\UserRepos;
 use App\Models\Project;
+use Illuminate\Contracts\View\View;
 use Laravel\Scout\Scout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -17,16 +18,14 @@ class GithubRepository extends Component
     public $description = '*Loading project may take a while so be patient!';
 
     #[On('refreshData')]
-    public function loadRepos()
+    public function loadRepos(): void
     {
-        Scout::removeFromSearchUsing(Project::class);
-
         UserRepos::dispatch(auth()->user()->username, auth()->user()->id)->onConnection('sync');
 
         Scout::makeSearchableUsing(Project::class);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.github-repository', [
             'repos' => Project::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->paginate(5),

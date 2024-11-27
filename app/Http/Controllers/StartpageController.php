@@ -11,18 +11,9 @@ class StartpageController extends Controller
     public function index()
     {
         $userItems = auth()->user()->items;
-        $userRepos = auth()->user()->projectsWhereUpdatedIsLatest()->paginate(5);
 
         return view('startpage', [
             'items' => $userItems,
-            'repos' => $userRepos,
         ]);
-    }
-
-    public function refresh()
-    {
-        $user = auth()->user();
-
-        UserRepos::dispatch($user->username, $user->id);
     }
 }
